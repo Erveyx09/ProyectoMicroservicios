@@ -1,6 +1,6 @@
 package com.formacionbdi.microservicios.app.usuarios.controllers;
 
-import com.formacionbdi.microservicios.app.usuarios.models.entity.Alumno;
+import com.formacionbdi.microservicios.commons.alumnos.models.entity.Alumno;
 import com.formacionbdi.microservicios.app.usuarios.services.AlumnoService;
 import com.formacionbdi.microservicios.commons.controllers.CommonController;
 import org.springframework.http.HttpStatus;
