@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,5 +51,11 @@ public class CursoController extends CommonController<Curso, CursoService> {
         dbCurso.removeAlumno(alumno);
         log.error("Curso removido " + dbCurso.getAlumnos().toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
+    }
+
+    @GetMapping("/alumno/{id}")
+    public ResponseEntity<?> buscarPorAlumnoId(@PathVariable Long id){
+        Curso curso = service.findCursoByAlumnoId(id);
+        return ResponseEntity.ok(curso);
     }
 }
