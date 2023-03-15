@@ -1,8 +1,9 @@
-package com.formacionbdi.microservicios.app.examenes.models.entity;
+package com.formacionbdi.microservicios.commons.examenes.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
 @Entity
 @Table(name = "preguntas")
 public class Pregunta {
