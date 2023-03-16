@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,10 @@ public class CursoController extends CommonController<Curso, CursoService> {
     Logger log = LoggerFactory.getLogger(CursoController.class);
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@RequestBody Curso curso, @PathVariable Long id){
+    public ResponseEntity<?> editar(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id){
+        if(result.hasErrors()){
+            return this.validar(result);
+        }
         Optional<Curso> o = this.service.findById(id);
         if(!o.isPresent()){
             return ResponseEntity.notFound().build();
