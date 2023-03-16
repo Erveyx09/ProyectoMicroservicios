@@ -1,5 +1,7 @@
 package com.formacionbdi.microservicios.commons.alumnos.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -28,9 +30,17 @@ public class Alumno {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    @Lob
+    @JsonIgnore
+    private byte[] foto;
+
     @PrePersist
     public void prePersist() {
         this.createAt = new Date();
+    }
+
+    public Integer getFotoHashCode(){
+        return (this.foto != null)? this.foto.hashCode(): null;
     }
 
     public Long getId() {
@@ -71,6 +81,14 @@ public class Alumno {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     @Override
