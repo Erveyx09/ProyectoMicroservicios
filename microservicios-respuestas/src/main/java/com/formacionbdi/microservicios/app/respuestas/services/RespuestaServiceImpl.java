@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class RespuestaServiceImpl implements RespuestaService{
 
     @Autowired
     private RespuestaRepository repository;
 
     @Override
+    @Transactional
     public Iterable<Respuesta> saveAll(Iterable<Respuesta> respuestas) {
         return repository.saveAll(respuestas);
     }

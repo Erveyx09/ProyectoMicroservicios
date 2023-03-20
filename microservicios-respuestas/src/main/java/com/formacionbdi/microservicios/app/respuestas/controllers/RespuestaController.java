@@ -19,7 +19,7 @@ public class RespuestaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respuestasDb);
     }
 
-    @GetMapping("/alumno/{alumnoid}/examen/{examenid}")
+    @GetMapping("/alumno/{alumnoId}/examen/{examenId}")
     public ResponseEntity<?> obtenerRespuestasPorAlumnoYExamen(@PathVariable Long alumnoId, @PathVariable Long examenId){
         Iterable<Respuesta> respuestas = service.findRespuestasByAlumnoAndExamen(alumnoId, examenId);
         return ResponseEntity.ok(respuestas);
