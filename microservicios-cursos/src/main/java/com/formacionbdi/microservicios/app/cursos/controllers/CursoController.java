@@ -7,13 +7,16 @@ import com.formacionbdi.microservicios.commons.controllers.CommonController;
 import com.formacionbdi.microservicios.commons.examenes.models.entity.Examen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,6 +24,17 @@ import java.util.stream.Collectors;
 public class CursoController extends CommonController<Curso, CursoService> {
 
     Logger log = LoggerFactory.getLogger(CursoController.class);
+
+    @Value("${config.balanceador.test}")
+    private String balanceadorTest;
+
+    @GetMapping("/balanceador-test")
+    public ResponseEntity<?> balanceadorTest() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("balanceador", balanceadorTest);
+        response.put("Cursos", service.findAll());
+        return ResponseEntity.ok(response);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id){
