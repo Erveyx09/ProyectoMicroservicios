@@ -1,6 +1,7 @@
 package com.formacionbdi.microservicios.app.cursos.controllers;
 
 import com.formacionbdi.microservicios.app.cursos.models.entity.Curso;
+import com.formacionbdi.microservicios.app.cursos.models.entity.CursoAlumno;
 import com.formacionbdi.microservicios.app.cursos.services.CursoService;
 import com.formacionbdi.microservicios.commons.alumnos.models.entity.Alumno;
 import com.formacionbdi.microservicios.commons.controllers.CommonController;
@@ -57,7 +58,12 @@ public class CursoController extends CommonController<Curso, CursoService> {
             return ResponseEntity.notFound().build();
         }
         Curso dbCurso = o.get();
-        alumnos.forEach(dbCurso::addAlumno);
+        alumnos.forEach(alumno -> {
+            CursoAlumno cursoAlumno = new CursoAlumno();
+            cursoAlumno.setAlumnoId(alumno.getId());
+            cursoAlumno.setCurso(dbCurso);
+            dbCurso.addCursoAlumno(cursoAlumno);
+        });
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
     }
 
@@ -69,7 +75,9 @@ public class CursoController extends CommonController<Curso, CursoService> {
             return ResponseEntity.notFound().build();
         }
         Curso dbCurso = o.get();
-        dbCurso.removeAlumno(alumno);
+        CursoAlumno cursoAlumno = new CursoAlumno();
+        cursoAlumno.setAlumnoId(alumno.getId());
+        dbCurso.removeCursoAlumno(cursoAlumno);
         log.error("Curso removido " + dbCurso.getAlumnos().toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
     }
