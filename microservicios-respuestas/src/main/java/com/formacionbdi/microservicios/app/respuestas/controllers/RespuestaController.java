@@ -20,6 +20,7 @@ public class RespuestaController {
     public ResponseEntity<?> crear(@RequestBody Iterable<Respuesta> respuestas){
         respuestas = ((List<Respuesta>) respuestas).stream().map(respuesta -> {
             respuesta.setAlumnoId(respuesta.getAlumno().getId());
+            respuesta.setPreguntaId(respuesta.getPregunta().getId());
             return respuesta;
         }).collect(Collectors.toList());
 
