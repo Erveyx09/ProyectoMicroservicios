@@ -21,12 +21,12 @@ public class RespuestaServiceImpl implements RespuestaService{
     @Override
     @Transactional(readOnly = true)
     public Iterable<Respuesta> findRespuestasByAlumnoAndExamen(Long alumnoId, Long examenId) {
-        return repository.findRespuestasByAlumnoAndExamen(alumnoId, examenId);
+        return null;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Iterable<Long> findExamenesIdsConRespuestasByAlumno(Long alumnoId) {
-        return repository.findExamenesIdsConRespuestasByAlumno(alumnoId);
+        return null;
     }
 }
