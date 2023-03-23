@@ -17,6 +17,11 @@ import java.util.Optional;
 @RestController
 public class ExamenController extends CommonController<Examen, ExamenService> {
 
+    @GetMapping("/respondidos-por-preguntas")
+    public ResponseEntity<?> obtenerExamenesIdsPorPreguntasIdsRespondidas(@RequestParam List<Long> preguntaIds){
+        return ResponseEntity.ok().body(service.findExamenesIdsConRespuestasByPreguntaIds(preguntaIds));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@Valid @RequestBody Examen examen, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
