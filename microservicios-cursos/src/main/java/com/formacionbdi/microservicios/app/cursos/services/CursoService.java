@@ -13,5 +13,7 @@ public interface CursoService extends CommonService<Curso> {
 
     public Iterable<Long> obternerExamenesIdsconRespuestasPorAlumno(Long alumnoId);
 
-    public Iterable<Alumno> obtenerAlumnosPorCurso(@RequestParam List<Long> ids);
+    public Iterable<Alumno> obtenerAlumnosPorCurso(List<Long> ids);
+
+    public void eliminarCursoAlumnoPorId(Long id);
 }

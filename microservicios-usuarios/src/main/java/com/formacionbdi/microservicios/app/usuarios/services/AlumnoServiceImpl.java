@@ -1,8 +1,10 @@
 package com.formacionbdi.microservicios.app.usuarios.services;
 
+import com.formacionbdi.microservicios.app.usuarios.client.CursoFeignClient;
 import com.formacionbdi.microservicios.commons.alumnos.models.entity.Alumno;
 import com.formacionbdi.microservicios.app.usuarios.models.repository.AlumnoRepository;
 import com.formacionbdi.microservicios.commons.services.CommonServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,9 @@ import java.util.List;
 
 @Service
 public class AlumnoServiceImpl extends CommonServiceImpl<Alumno, AlumnoRepository> implements AlumnoService{
+
+    @Autowired
+    private CursoFeignClient clientCurso;
 
     @Override
     @Transactional(readOnly = true)
@@ -21,5 +26,17 @@ public class AlumnoServiceImpl extends CommonServiceImpl<Alumno, AlumnoRepositor
     @Transactional(readOnly = true)
     public Iterable<Alumno> findAllById(Iterable<Long> ids) {
         return repository.findAllById(ids);
+    }
+
+    @Override
+    public void eliminarCursoAlumnoPorId(Long id) {
+        clientCurso.eliminarCursoAlumnoPorId(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        super.deleteById(id);
+        this.eliminarCursoAlumnoPorId(id);
     }
 }

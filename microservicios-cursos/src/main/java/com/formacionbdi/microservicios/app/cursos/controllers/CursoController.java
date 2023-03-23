@@ -39,6 +39,12 @@ public class CursoController extends CommonController<Curso, CursoService> {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/eliminar-alumno/{id}")
+    public ResponseEntity<?> eliminarCursoAlumnoPorId(@PathVariable Long id){
+        service.eliminarCursoAlumnoPorId(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping
     @Override
     public ResponseEntity<?> listar(){
