@@ -18,5 +18,9 @@ public interface RespuestaRepository extends MongoRepository<Respuesta, String> 
     //@Query("select e.id from Respuesta r join r.pregunta p join p.examen e where r.alumnoId=?1 group by e.id")
     //public Iterable<Long> findExamenesIdsConRespuestasByAlumno(Long alumnoId);
 
+    @Query("{'alumnoId': ?0, 'pregunta.examen.id': ?1}")
+    public Iterable<Respuesta> findRespuestasByAlumnoAndExamen (Long alumnoId, Long examenId);
 
+    @Query(value = "{'alumnoId': ?0}", fields = "{'pregunta.examen.id': 1}" )
+    public  Iterable<Respuesta> findExamenesIdsConRespuestaByAlumno(Long alumnoId);
 }
